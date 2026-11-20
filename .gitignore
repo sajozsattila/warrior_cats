@@ -1,0 +1,6 @@
+/logs/app.log
+/chatgpt_api_key.txt
+/opencode.jsonc
+/.opencode/
+/.github/
+/.idea/
