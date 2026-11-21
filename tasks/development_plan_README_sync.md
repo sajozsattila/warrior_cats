@@ -80,14 +80,6 @@ Align `README.md` (the project brief) with the **LLM Wiki** framework described 
 
 ### 14. Open questions (lines ~341–363)
 - **Resolve first**: Pick one of the unresolved items from AGENT_wiki.md:
-  - Final visual design & page layout. (Answered)
-  - Exact JSON schema: whether `parent`/`children` are stored separately or derived from parent references; fields like `derived_from`, `related`, `status`, `reviewed_by`. Sub-questions:
-    - 2a. **Answered: Tree.** The hierarchy is a tree (parent = next lower level, children = next higher levels). Side/related connections at the same level are expressed via explicit `children` lists and a `related` provenance field, not graph edges. Reasoning: (1) unambiguous up-navigation; (2) simple validation of parent/child existence, cycles, adjacency; (3) matches README's explicit "not a general many-to-many graph"; (4) multiple children at higher level require an explicit child list; (5) cross-level provenance via `derived_from`/`related` is allowed but not required.
-    - 2b. **Answered**: For the tree model, `parent`, `children` are *computed* from the central JSON registry (next lower / next higher level pages); `derived_from` is separate provenance. Which fields (`parent`/`children` vs `derived_from`) are written by hand vs computed by scripts?
-      - **Hand-written**: `title`, `status`, `reviewed_by`.
-      - **Computed by script**: `id` (next unused integer = max+1), `level`, `parent`, `children`, `derived_from`.
-    - 2c. **Answered** Canonical ID format (e.g., `arc-1`, `topic-a-overview`) — see Canonical ID Format (2c) — Decision Record section.
-    - 2d. Single root/top page (Level 1) or multiple roots?
   - 3–6. (default topic-link behavior, child-page memory keying, content authoring conventions, search/visualization.)
 - **Sync**: Note these as "needs decision" items that the README should flag.
 
@@ -112,21 +104,12 @@ Align `README.md` (the project brief) with the **LLM Wiki** framework described 
 - [ ] Open questions listed as unresolved decisions.
 
 ## Open questions (unresolved — pick one to resolve first)
-1. **Answered**: Final visual design & page layout (1) — not yet resolved; user confirmed they believe it's answered. Marked as answered in this file for tracking purposes.
-2. Exact JSON schema: whether `parent`/`children` are stored separately or derived from parent references; fields like `derived_from`, `related`, `status`, `reviewed_by`. Sub-questions:
-   - 2a. **Answered: Tree.** The hierarchy is a tree (parent = next lower level, children = next higher levels). Side/related connections at the same level are expressed via explicit `children` lists and a `related` provenance field, not graph edges. Reasoning: (1) unambiguous up-navigation; (2) simple validation of parent/child existence, cycles, adjacency; (3) matches README's explicit "not a general many-to-many graph"; (4) multiple children at higher level require an explicit child list; (5) cross-level provenance via `derived_from`/`related` is allowed but not required.
-   - 2b. **Answered**: For the tree model, `parent`, `children` are *computed* from the central JSON registry (next lower / next higher level pages); `derived_from` is separate provenance. Which fields (`parent`/`children` vs `derived_from`) are written by hand vs computed by scripts?
-     - **Hand-written**: `title`, `status`, `reviewed_by`.
-     - **Computed by script**: `id` (max+1), `level`, `parent`, `children`, `derived_from`.
-   - 2c. Canonical ID format (e.g., `arc-1`, `topic-a-overview`) — arc-numbered vs topic-based.
-   - 2d. Single root/top page (Level 1) or multiple roots?
-3. **Answered**: Default behavior for a topic link when no page exists at the visitor's selected level (resolution order: previously visited child → available children → user choice; if no page exists, redirect to an opening parent/root topic after a popup warning explaining why the requested page is missing).
-4. How long to remember previously visited child-page choices and how they're keyed by parent/topic.
-5. Exact content authoring conventions and required provenance fields (e.g., `id`, `title`, `level`, `parent`, `children`, `derived_from`, `related`, `status`, `reviewed_by`).
-6. Search feature or hierarchy visualization.
-7. **TODO (backbone ready)**: Level selector UI must exist on every content page; it stores the user's chosen level in `localStorage` (default Level 1) and resolves topic links at that level. Page content must match the current `level` setting (spoiler boundary). This is a basic operation/backbone — no visual design or layout decisions needed now.
+1. How long to remember previously visited child-page choices and how they're keyed by parent/topic.
+2. Exact content authoring conventions and required provenance fields (e.g., `id`, `title`, `level`, `parent`, `children`, `derived_from`, `related`, `status`, `reviewed_by`).
+3. Search feature or hierarchy visualization.
+4. **TODO (backbone ready)**: Level selector UI must exist on every content page; it stores the user's chosen level in `localStorage` (default Level 1) and resolves topic links at that level. Page content must match the current `level` setting (spoiler boundary). This is a basic operation/backbone — no visual design or layout decisions needed now.
 
-# 2b — Field hand/computed origin (revised)
+# Field hand/computed origin  — Decision Record
 
 | Field | Value / meaning | Hand-written? | Computed by script? |
 |---|---|---|---|
@@ -145,7 +128,7 @@ Align `README.md` (the project brief) with the **LLM Wiki** framework described 
 - **Computed by script:** `id` (max+1), `level`, `parent`, `children`, `derived_from`.
 - **LLM-written:** `related` (when the wiki explains same-level links).
 
-# Canonical ID Format (2c) — Decision Record
+# Canonical ID Format — Decision Record
 
 ## Decision
 **Canonical `id` format is arc-numbered: `arc-N` where N is the arc number (1, 2, 3, …).**
@@ -162,16 +145,9 @@ Align `README.md` (the project brief) with the **LLM Wiki** framework described 
 | Hand-written? | **None** — `id` is computed by script. |
 | Computed by script: `id = max(current ids) + 1` | e.g., existing ids `arc-1`, `arc-2` → numeric max = 2 → next unused integer = **4**. |
 
-## Supersedes
-- The previous table example (`arc-1`, `arc-2`) and the "next = arc-3? or just 4?" question.
+# Single root/top page (Level 1) or multiple roots?  — Decision Record
 
-## Where it appears in the plan
-- Section "Decision under discussion (2c / 2b area)" — lines 8–10.
-- Section "Canonical ID format (2c) — decision recorded" — lines 12–18.
-- Section "Suggested placement" → Open questions (2b/2c) — lines 43–45.
-- Checklist item: **NEW** — "Decision recorded for filenames and integer `id` (this note)." — line 58.
-- Blocked / needs decision: **2b** (integer `id` vs `arc-N` string) — line 76.
-
+Multiple roots, every topic has its own roots.
 
 ## Sync checklist (to verify after edits)
 - [ ] README mentions LLM wiki skills pipeline.
