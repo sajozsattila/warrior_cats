@@ -86,7 +86,7 @@ Align `README.md` (the project brief) with the **LLM Wiki** framework described 
     - 2b. **Answered**: For the tree model, `parent`, `children` are *computed* from the central JSON registry (next lower / next higher level pages); `derived_from` is separate provenance. Which fields (`parent`/`children` vs `derived_from`) are written by hand vs computed by scripts?
       - **Hand-written**: `title`, `status`, `reviewed_by`.
       - **Computed by script**: `id` (next unused integer = max+1), `level`, `parent`, `children`, `derived_from`.
-    - 2c. Canonical ID format (e.g., `arc-1`, `topic-a-overview`) — arc-numbered vs topic-based.
+    - 2c. **Answered** Canonical ID format (e.g., `arc-1`, `topic-a-overview`) — see Canonical ID Format (2c) — Decision Record section.
     - 2d. Single root/top page (Level 1) or multiple roots?
   - 3–6. (default topic-link behavior, child-page memory keying, content authoring conventions, search/visualization.)
 - **Sync**: Note these as "needs decision" items that the README should flag.
@@ -144,6 +144,33 @@ Align `README.md` (the project brief) with the **LLM Wiki** framework described 
 - **Hand-written:** `title`, `status`, `reviewed_by`.
 - **Computed by script:** `id` (max+1), `level`, `parent`, `children`, `derived_from`.
 - **LLM-written:** `related` (when the wiki explains same-level links).
+
+# Canonical ID Format (2c) — Decision Record
+
+## Decision
+**Canonical `id` format is arc-numbered: `arc-N` where N is the arc number (1, 2, 3, …).**
+
+## Rationale
+- Source files are named `1_firestar.md`, `2_firestar.md`, `3_firestar.md` — the arc number is in the filename.
+- The field split table (lines 131–141 of `AGENT_wiki.md`) lists example IDs as `arc-1`, `arc-2`.
+- "Next unused integer" = max numeric part + 1 (e.g., after arcs 1–3 → next `id` = 4, i.e. integer **4**, not `arc-3`).
+- This resolves the earlier ambiguity at line 133 of `tasks/development_plan_README_sync.md`: *"arc-3? or just 4?"* — the integer `id` is a simple bare integer, independent of arc/topic.
+
+## Hand vs Computed Split for `id`
+| Aspect | Source |
+|---|---|
+| Hand-written? | **None** — `id` is computed by script. |
+| Computed by script: `id = max(current ids) + 1` | e.g., existing ids `arc-1`, `arc-2` → numeric max = 2 → next unused integer = **4**. |
+
+## Supersedes
+- The previous table example (`arc-1`, `arc-2`) and the "next = arc-3? or just 4?" question.
+
+## Where it appears in the plan
+- Section "Decision under discussion (2c / 2b area)" — lines 8–10.
+- Section "Canonical ID format (2c) — decision recorded" — lines 12–18.
+- Section "Suggested placement" → Open questions (2b/2c) — lines 43–45.
+- Checklist item: **NEW** — "Decision recorded for filenames and integer `id` (this note)." — line 58.
+- Blocked / needs decision: **2b** (integer `id` vs `arc-N` string) — line 76.
 
 
 ## Sync checklist (to verify after edits)
